@@ -1,0 +1,158 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Diabetes Prediction</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-image: url("{% static 'DiabetesPrediction/images/img2.jpg' %}");
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .main {
+            background-color: rgba(124, 69, 64, 0.95);
+            border-radius: 15px;
+            padding: 30px 40px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            max-width: 600px;
+            width: 100%;
+        }
+
+        h1 {
+            color: #000000;
+            font-size: 32px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        table {
+            width: 100%;
+        }
+
+        td {
+            padding: 10px;
+            font-size: 16px;
+        }
+
+        input[type="range"] {
+            width: 100%;
+        }
+
+        .value-label {
+            margin-left: 10px;
+            font-weight: bold;
+            color: #000000;
+        }
+
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: rgb(0, 0, 0);
+            padding: 10px 20px;
+            border: none;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            display: block;
+            margin: 20px auto 0;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+            text-align: center;
+            color: #d9534f;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+<div class="main">
+    <h1>Enter Patient Information</h1>
+    <form action="result" method="get">
+        <table>
+            <tr>
+                <td align="right">Pregnancies:</td>
+                <td>
+                    <input type="range" name="n1" id="n1" min="0" max="17" step="1" value="{{ n1|default:'0' }}" oninput="updateValue(this)">
+                    <span class="value-label" id="n1_val">{{ n1|default:'0' }}</span>
+                </td>
+            </tr>
+            <tr>
+                <td align="right">Glucose:</td>
+                <td>
+                    <input type="range" name="n2" id="n2" min="0" max="200" step="1" value="{{ n2|default:'0' }}" oninput="updateValue(this)">
+                    <span class="value-label" id="n2_val">{{ n2|default:'0' }}</span>
+                </td>
+            </tr>
+            <tr>
+                <td align="right">Blood Pressure:</td>
+                <td>
+                    <input type="range" name="n3" id="n3" min="0" max="122" step="1" value="{{ n3|default:'0' }}" oninput="updateValue(this)">
+                    <span class="value-label" id="n3_val">{{ n3|default:'0' }}</span>
+                </td>
+            </tr>
+            <tr>
+                <td align="right">Skin Thickness:</td>
+                <td>
+                    <input type="range" name="n4" id="n4" min="0" max="99" step="1" value="{{ n4|default:'0' }}" oninput="updateValue(this)">
+                    <span class="value-label" id="n4_val">{{ n4|default:'0' }}</span>
+                </td>
+            </tr>
+            <tr>
+                <td align="right">Insulin:</td>
+                <td>
+                    <input type="range" name="n5" id="n5" min="0" max="846" step="1" value="{{ n5|default:'0' }}" oninput="updateValue(this)">
+                    <span class="value-label" id="n5_val">{{ n5|default:'0' }}</span>
+                </td>
+            </tr>
+            <tr>
+                <td align="right">BMI:</td>
+                <td>
+                    <input type="range" name="n6" id="n6" min="10" max="67" step="0.1" value="{{ n6|default:'0' }}" oninput="updateValue(this)">
+                    <span class="value-label" id="n6_val">{{ n6|default:'0' }}</span>
+                </td>
+            </tr>
+            <tr>
+                <td align="right">Diabetes Pedigree Function:</td>
+                <td>
+                    <input type="range" name="n7" id="n7" min="0.1" max="2.5" step="0.01" value="{{ n7|default:'0.1' }}" oninput="updateValue(this)">
+                    <span class="value-label" id="n7_val">{{ n7|default:'0.1' }}</span>
+                </td>
+            </tr>
+            <tr>
+                <td align="right">Age:</td>
+                <td>
+                    <input type="range" name="n8" id="n8" min="0" max="100" step="1" value="{{ n8|default:'0' }}" oninput="updateValue(this)">
+                    <span class="value-label" id="n8_val">{{ n8|default:'0' }}</span>
+                </td>
+            </tr>
+        </table>
+        <input type="submit" value="Predict">
+    </form>
+    <div class="result">Result: {{ result2 }}</div>
+</div>
+
+<script>
+    function updateValue(slider) {
+        const span = document.getElementById(slider.id + "_val");
+        span.textContent = slider.value;
+    }
+</script>
+</body>
+</html>
